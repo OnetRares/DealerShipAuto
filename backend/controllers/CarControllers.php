@@ -110,7 +110,6 @@ class CarController
                 jsonResponse(["success" => false, "error" => "Date JSON invalide."], 400);
             }
 
-            // câmpuri obligatorii
             $required = ['car_id', 'buyer_id', 'final_price', 'payment_method'];
             foreach ($required as $field) {
                 if (empty($data[$field])) {
@@ -118,20 +117,17 @@ class CarController
                 }
             }
 
-            // verifică dacă mașina există
             $car = $this->carModel->findById((int) $data['car_id']);
             if (!$car) {
                 jsonResponse(["success" => false, "error" => "Mașina nu există."], 404);
             }
 
-            // verifică dacă mașina nu a fost deja cumpărată
             if (method_exists($this->carModel, 'isCarSold') && $this->carModel->isCarSold((int) $data['car_id'])) {
-                jsonResponse(["success" => false, "error" => "Mașina a fost deja vândută."], 409);
+                jsonResponse(["success" => false, "error" => "The car was already sold"], 409);
             }
 
-            // inserează tranzacția
             if (!method_exists($this->carModel, 'insertTransaction')) {
-                jsonResponse(["success" => false, "error" => "Funcția insertTransaction lipsește din model."], 500);
+                jsonResponse(["success" => false, "error" => "The insert Transaction function is missing from the model."], 500);
             }
 
             $transactionId = $this->carModel->insertTransaction([
@@ -143,7 +139,7 @@ class CarController
 
             jsonResponse([
                 "success" => true,
-                "message" => "Tranzacția a fost înregistrată cu succes.",
+                "message" => "The transaction was successfully recorded..",
                 "transaction_id" => $transactionId
             ], 201);
 
