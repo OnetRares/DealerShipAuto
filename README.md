@@ -29,6 +29,7 @@ It allows managing available cars, user authentication, and a responsive UI buil
 
 ## 📂 Project Structure
 dealership-auto/
+
 ├─ backend/
 │ ├─ config/ # Database configuration
 │ ├─ controllers/ # CarControllers, AuthControllers
@@ -36,6 +37,7 @@ dealership-auto/
 │ ├─ auth/ # endpoints for auth
 │ ├─cars/ #endpoints for cars
 │ └─ error.log # Error log
+
 ├─ frontend/
 │ ├─ src/
 │ │ ├─ assets/ # React components
