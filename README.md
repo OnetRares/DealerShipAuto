@@ -29,27 +29,23 @@ It allows managing available cars, user authentication, and a responsive UI buil
 
 ## 📂 Project Structure
 dealership-auto/
-├── **backend/** # Server-side code (Node.js/Express)
-│   ├── **config/** # Database configuration (e.g., connection setup)
-│   ├── **controllers/** # Request handling logic (CarControllers, AuthControllers)
-│   ├── **models/** # Data definitions and schemas (Car, User, Repository)
-│   ├── **routes/** # API route definitions
-│   │   ├── **auth/** # Endpoints for authentication and users
-│   │   └── **cars/** # Endpoints for car management
-│   └── **error.log** # Application error log
-│
-├── **frontend/** # Client-side code (React/Vite)
-│   ├── **src/** # Main source code for the React application
-│   │   ├── **assets/** # Reusable React components (UI)
-│   │   ├── **pages/** # Components for main pages (routing)
-│   │   ├── **main.jsx** # React entry point
-│   │   └── **App.jsx** # Main application component
-│   ├── **package.json** # Frontend dependencies and scripts
-│   └── **vite.config.js** # Vite configuration
-│
-├── **package.json** # Project-level dependencies and scripts (if applicable)
-├── **.gitignore** # Files and folders ignored by Git
-└── **README.md** # Project documentation (this file)
+├─ backend/
+│ ├─ config/ # Database configuration
+│ ├─ controllers/ # CarControllers, AuthControllers
+│ ├─ models/ # Car, User, Repository
+│ ├─ auth/ # endpoints for authentification
+| ├─cars/ #endpoints for cars 
+│ └─ error.log # Error log
+├─ frontend/
+│ ├─ src/
+│ │ ├─ components/ # React components
+│ │ ├─ pages/ # Main pages
+│ │ ├─ main.jsx # React entry point
+│ │ └─ App.jsx
+│ ├─ package.json
+│ └─ vite.config.js
+├─ .gitignore
+└─ README.md
 
 ## 🚀 Installation & Running
 
