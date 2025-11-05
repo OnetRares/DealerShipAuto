@@ -139,7 +139,7 @@ class CarController
 
             jsonResponse([
                 "success" => true,
-                "message" => "The transaction was successfully recorded..",
+                "message" => "Tranzacția a fost înregistrată cu succes.",
                 "transaction_id" => $transactionId
             ], 201);
 

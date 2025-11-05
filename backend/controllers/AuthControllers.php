@@ -1,5 +1,8 @@
 <?php
 require_once(__DIR__ . '/../models/User.php');
+require_once(__DIR__ . '/../utils/csrf.php');
+require_once(__DIR__ . '/../utils/csrf.php');
+
 
 class AuthController
 {
@@ -52,6 +55,17 @@ class AuthController
     // ===================== LOGIN =====================
     public function login()
     {
+        require_once(__DIR__ . '/../utils/csrf.php');
+
+        // === Verificăm tokenul CSRF ===
+        $headers = getallheaders();
+        $token = $headers['X-CSRF-Token'] ?? $headers['x-csrf-token'] ?? null;
+
+        if (!$token || !verifyCsrfToken($token)) {
+            jsonResponse(['success' => false, 'error' => 'Invalid CSRF token'], 403);
+        }
+
+        // === Datele de login ===
         $data = json_decode(file_get_contents("php://input"), true);
 
         $email = trim($data['email'] ?? '');
