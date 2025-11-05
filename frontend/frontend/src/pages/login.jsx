@@ -1,15 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import '../Styles/AuthForm.css';
 
 function Login({ onLoginSuccess, onSwitchToSignup }) {
     const [form, setForm] = useState({ email: "", password: "" });
     const [message, setMessage] = useState("");
+    const [csrfToken, setCsrfToken] = useState("");
+
+    useEffect(() => {
+        const fetchCsrfToken = async () => {
+            try {
+                const res = await fetch("http://localhost/backend/auth/csrftoken.php", {
+                    credentials: "include",
+                });
+                const data = await res.json();
+                if (data.csrf_token) {
+                    setCsrfToken(data.csrf_token);
+                }
+            } catch (err) {
+                console.error("Eroare la obținerea tokenului CSRF:", err);
+            }
+        };
+        fetchCsrfToken();
+    }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();
         setMessage("");
-
-        console.log("Form being sent:", form);
 
         if (!form.email || !form.password) {
             setMessage("Email și parola sunt obligatorii.");
@@ -21,6 +37,7 @@ function Login({ onLoginSuccess, onSwitchToSignup }) {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "X-CSRF-Token": csrfToken,
                 },
                 credentials: "include",
                 body: JSON.stringify(form),
@@ -48,23 +65,24 @@ function Login({ onLoginSuccess, onSwitchToSignup }) {
                 <input
                     type="email"
                     placeholder="Email"
-                    value={form.email} // <--- fix important
+                    value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     required
                 />
                 <input
                     type="password"
                     placeholder="Parola"
-                    value={form.password} // <--- fix important
+                    value={form.password}
                     onChange={(e) => setForm({ ...form, password: e.target.value })}
                     required
                 />
-                <button type="submit">Login</button>
+
+                <button type="submit" disabled={!csrfToken}>
+                    {csrfToken ? "Login" : "Se încarcă..."}
+                </button>
             </form>
 
-            {message && (
-                <p className="error-message">{message}</p>
-            )}
+            {message && <p className="error-message">{message}</p>}
 
             <div className="form-link">
                 <p>
