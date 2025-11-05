@@ -8,3 +8,4 @@ if (!class_exists('AuthController')) {
 
 $authController = new AuthController($db);
 $authController->login();
+?>
