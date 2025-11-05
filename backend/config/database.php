@@ -2,9 +2,9 @@
 class Database
 {
     private $host = "localhost";
-    private $db_name = "cars_db";
+    private $db_name = "your_db_name";
     private $user = "postgres";
-    private $password = "rares123";
+    private $password = "your_password";
     private $conn;
 
     public function getConnection()
