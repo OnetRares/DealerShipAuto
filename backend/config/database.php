@@ -2,9 +2,9 @@
 class Database
 {
     private $host = "localhost";
-    private $db_name = "your_database";
+    private $db_name = "cars_db";
     private $user = "postgres";
-    private $password = "your_password";
+    private $password = "rares123";
     private $conn;
 
     public function getConnection()
@@ -16,8 +16,8 @@ class Database
             $this->conn = new PDO($dsn, $this->user, $this->password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            error_log('Eroare Conexiune BD: ' . $e->getMessage());
-            return null;
+            echo json_encode(['success' => false, 'error' => 'Eroare BD: ' . $e->getMessage()]);
+            exit;
         }
 
         return $this->conn;
